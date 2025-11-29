@@ -54,7 +54,7 @@ export interface PRDDocument {
   outOfScope: string[];
   technicalConsiderations: string[];
   implementationRoadmap: Phase[];
-  assumptions?: Assumption[];
+  assumptions: Assumption[];
 }
 
 // Persisted state for localStorage

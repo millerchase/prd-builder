@@ -60,7 +60,7 @@ You MUST respond with valid JSON in one of two formats:
    - Actively push back on feature creep - scope to MVP
 
 3. **Assumptions:**
-   - Only include the "assumptions" field if you had to infer information
+   - Always include an "assumptions" array; use [] if no assumptions were needed
    - Each assumption should explain what was assumed and how to validate it
 
 4. **Security:**
@@ -86,5 +86,5 @@ export function buildForceGenerateMessage(): string {
 }
 
 export function buildJsonRetryMessage(): string {
-  return `Your previous response was not valid JSON. Please respond with valid JSON only, following the exact schema provided.`;
+  return `Your previous response was not valid JSON. Please respond with valid JSON only, following the exact schema provided. Do not include comments, markdown, or any text outside the JSON object.`;
 }

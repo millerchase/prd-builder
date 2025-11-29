@@ -69,8 +69,8 @@ export function generateMarkdown(prd: PRDDocument): string {
     sections.push('');
   });
 
-  // Assumptions (if present)
-  if (prd.assumptions && prd.assumptions.length > 0) {
+  // Assumptions (only show section if there are assumptions)
+  if (prd.assumptions.length > 0) {
     sections.push(`## Assumptions\n`);
     sections.push(`> **Note:** The following assumptions were made during PRD generation. Please verify these are correct.\n`);
     prd.assumptions.forEach((assumption) => {
