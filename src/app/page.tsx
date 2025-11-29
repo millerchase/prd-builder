@@ -1,8 +1,48 @@
+"use client";
+
+import { useChat } from "@/hooks/useChat";
+import { ChatInterface } from "@/components/ChatInterface";
+import { PRDPreview } from "@/components/PRDPreview";
+
 export default function Home() {
+  const {
+    state,
+    messages,
+    prd,
+    error,
+    clarificationRound,
+    isInputDisabled,
+    originalIdea,
+    sendMessage,
+    retry,
+    startOver,
+    editAndRegenerate,
+  } = useChat();
+
+  // Show PRD preview when complete
+  if (state === "complete" && prd) {
+    return (
+      <PRDPreview
+        prd={prd}
+        messages={messages}
+        onStartNew={startOver}
+        onEditRegenerate={editAndRegenerate}
+      />
+    );
+  }
+
+  // Show chat interface for all other states
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <h1 className="text-4xl font-bold">PRD Builder</h1>
-      <p className="mt-4 text-neutral-600">AI-Powered Product Requirements Document Builder</p>
-    </main>
+    <ChatInterface
+      state={state}
+      messages={messages}
+      error={error}
+      clarificationRound={clarificationRound}
+      isInputDisabled={isInputDisabled}
+      initialIdea={originalIdea}
+      onSendMessage={sendMessage}
+      onRetry={retry}
+      onStartOver={startOver}
+    />
   );
 }
