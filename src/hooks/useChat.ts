@@ -23,8 +23,8 @@ import {
   getParseError,
   getConsecutiveFailureMessage,
 } from '@/lib/errors';
+import { MAX_CLARIFICATION_ROUNDS } from '@/lib/constants';
 
-const MAX_CLARIFICATION_ROUNDS = 5;
 const REQUEST_TIMEOUT_MS = 45000;
 
 interface UseChatReturn {

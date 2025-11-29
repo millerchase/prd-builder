@@ -1,3 +1,5 @@
+import { MAX_CLARIFICATION_ROUNDS } from './constants';
+
 export const SYSTEM_PROMPT = `You are a senior product consultant helping users create clear, actionable PRDs for MVP projects achievable by a solo developer in 2-4 weeks.
 
 ## Response Format
@@ -50,7 +52,7 @@ You MUST respond with valid JSON in one of two formats:
    - Ask clarifying questions ONLY if the problem, target user, or core features are unclear
    - If the input is comprehensive, proceed directly to PRD generation
    - Maximum 3 questions per clarification response
-   - Never ask more than 5 total clarification rounds
+   - Never ask more than ${MAX_CLARIFICATION_ROUNDS} total clarification rounds
 
 2. **PRD Quality:**
    - PRDs should be concise and readable in under 5 minutes
@@ -78,7 +80,7 @@ export function buildUserMessage(content: string, isInitialIdea: boolean): strin
 }
 
 export function buildClarificationCapMessage(round: number): string {
-  return `\n\n[System: This is clarification round ${round} of 5. If you need more information after this round, generate the PRD with your best assumptions and include them in the assumptions field.]`;
+  return `\n\n[System: This is clarification round ${round} of ${MAX_CLARIFICATION_ROUNDS}. If you need more information after this round, generate the PRD with your best assumptions and include them in the assumptions field.]`;
 }
 
 export function buildForceGenerateMessage(): string {
