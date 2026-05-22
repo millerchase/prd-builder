@@ -173,7 +173,7 @@ The app handles common errors gracefully:
 
 ## License
 
-ISC
+MIT
 
 ## Acknowledgments
 
