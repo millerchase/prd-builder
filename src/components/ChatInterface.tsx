@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useState, useRef, useEffect, KeyboardEvent } from 'react';
-import { AppState, Message, AppError } from '@/lib/types';
-import { MAX_CLARIFICATION_ROUNDS } from '@/lib/constants';
-import { MessageBubble } from './MessageBubble';
+import { useState, useRef, useEffect, KeyboardEvent } from "react";
+import { AppState, Message, AppError } from "@/lib/types";
+import { MAX_CLARIFICATION_ROUNDS } from "@/lib/constants";
+import { MessageBubble } from "./MessageBubble";
 
 interface ChatInterfaceProps {
   state: AppState;
@@ -23,19 +23,19 @@ export function ChatInterface({
   error,
   clarificationRound,
   isInputDisabled,
-  initialIdea = '',
+  initialIdea = "",
   onSendMessage,
   onRetry,
   onStartOver,
 }: ChatInterfaceProps) {
-  const [input, setInput] = useState(initialIdea);
+  const [input, setInput] = useState(() => initialIdea || "");
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   // Auto-scroll to bottom when messages change
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   // Focus textarea on mount
@@ -43,21 +43,14 @@ export function ChatInterface({
     textareaRef.current?.focus();
   }, []);
 
-  // Update input when initialIdea changes (for Edit & Regenerate)
-  useEffect(() => {
-    if (initialIdea && messages.length === 0) {
-      setInput(initialIdea);
-    }
-  }, [initialIdea, messages.length]);
-
   const handleSubmit = () => {
     if (!input.trim() || isInputDisabled) return;
     onSendMessage(input.trim());
-    setInput('');
+    setInput("");
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSubmit();
     }
@@ -74,19 +67,19 @@ export function ChatInterface({
   const confirmStartOver = () => {
     setShowConfirmModal(false);
     onStartOver();
-    setInput('');
+    setInput("");
   };
 
   const getStateLabel = (): string => {
     switch (state) {
-      case 'loading':
-        return 'Generating...';
-      case 'clarifying':
+      case "loading":
+        return "Generating...";
+      case "clarifying":
         return `Clarifying (${clarificationRound}/${MAX_CLARIFICATION_ROUNDS})`;
-      case 'error':
-        return 'Error';
+      case "error":
+        return "Error";
       default:
-        return '';
+        return "";
     }
   };
 
@@ -103,7 +96,7 @@ export function ChatInterface({
           <div className="flex items-center gap-3">
             {stateLabel && (
               <div className="flex items-center gap-2 text-sm text-neutral-500">
-                {state === 'loading' && (
+                {state === "loading" && (
                   <div className="h-4 w-4 animate-spin rounded-full border-2 border-neutral-300 border-t-neutral-600" />
                 )}
                 {stateLabel}
@@ -143,7 +136,7 @@ export function ChatInterface({
 
       {/* Messages area */}
       <div
-        aria-busy={state === 'loading'}
+        aria-busy={state === "loading"}
         className="flex-1 overflow-y-auto px-4 py-6"
       >
         <div className="mx-auto max-w-2xl">
@@ -173,8 +166,8 @@ export function ChatInterface({
               onKeyDown={handleKeyDown}
               placeholder={
                 messages.length === 0
-                  ? 'Describe your product idea...'
-                  : 'Type your response...'
+                  ? "Describe your product idea..."
+                  : "Type your response..."
               }
               disabled={isInputDisabled}
               rows={3}

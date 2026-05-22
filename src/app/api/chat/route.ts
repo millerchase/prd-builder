@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
     let parsed: AIResponse;
     try {
       parsed = JSON.parse(textContent.text) as AIResponse;
-    } catch (parseError) {
+    } catch {
       console.error('Failed to parse AI response as JSON:', textContent.text);
       // Return raw text so frontend can request retry
       return NextResponse.json(

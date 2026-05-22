@@ -1,17 +1,17 @@
-import { PersistedState, AppState, Message, PRDDocument } from './types';
+import { PersistedState } from "./types";
 
-const STORAGE_KEY = 'prd-builder-state';
+const STORAGE_KEY = "prd-builder-state";
 
 const DEFAULT_STATE: PersistedState = {
-  state: 'idle',
+  state: "idle",
   messages: [],
   prd: null,
   clarificationRound: 0,
-  originalIdea: '',
+  originalIdea: "",
 };
 
 export function loadState(): PersistedState {
-  if (typeof window === 'undefined') {
+  if (typeof window === "undefined") {
     return DEFAULT_STATE;
   }
 
@@ -27,13 +27,13 @@ export function loadState(): PersistedState {
     }
     return parsed;
   } catch (error) {
-    console.warn('Failed to load state from localStorage:', error);
+    console.warn("Failed to load state from localStorage:", error);
     return DEFAULT_STATE;
   }
 }
 
 export function saveState(state: PersistedState): boolean {
-  if (typeof window === 'undefined') {
+  if (typeof window === "undefined") {
     return false;
   }
 
@@ -41,13 +41,13 @@ export function saveState(state: PersistedState): boolean {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     return true;
   } catch (error) {
-    console.warn('Failed to save state to localStorage:', error);
+    console.warn("Failed to save state to localStorage:", error);
     return false;
   }
 }
 
 export function clearState(): boolean {
-  if (typeof window === 'undefined') {
+  if (typeof window === "undefined") {
     return false;
   }
 
@@ -55,7 +55,7 @@ export function clearState(): boolean {
     localStorage.removeItem(STORAGE_KEY);
     return true;
   } catch (error) {
-    console.warn('Failed to clear state from localStorage:', error);
+    console.warn("Failed to clear state from localStorage:", error);
     return false;
   }
 }
